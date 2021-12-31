@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider_et_sqflite/model/counter.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import 'my_home_page.dart';
 
@@ -14,7 +16,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: ScopedModel<Counter>(
+        model: Counter(),
+        child: const MyHomePage(),
+      ),
     );
   }
 }
