@@ -6,19 +6,11 @@ import 'user.dart';
 final handler = DatabaseHandler();
 
 class UserModel extends Model {
-  User _userOne = User(name: 'XXX', location: 'XXX');
+  User _userOne = User(name: 'Json Web', location: 'Detroit');
   User get userOne => _userOne;
-  /*  User _userTwo = User(name: 'Mutudu', location: 'Hokkaidu');
-  User get userTwo => _userTwo; 
-
-  User _userThree = User(name: 'John Smith', location: 'East Coast');
-  User get userThree => _userThree;
-  */
 
   void addingUsers() {
     _userOne = userOne;
-    //_userTwo = userTwo;
-    //_userThree = userThree;
 
     notifyListeners();
   }

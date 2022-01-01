@@ -51,7 +51,7 @@ class MyHomePage extends StatelessWidget {
                         snapshot.data![index].location,
                         style: const TextStyle(
                           fontSize: 20,
-                          color: Colors.red,
+                          color: Colors.blue,
                         ),
                       ),
                     ),
