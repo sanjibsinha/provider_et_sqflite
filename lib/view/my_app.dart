@@ -12,10 +12,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Scoped Model Simple',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+
+      /// child widggets are now under its scope
+      /// and we can use this model anywhere below
+      ///
       home: ScopedModel<Counter>(
         model: Counter(),
         child: const MyHomePage(),
