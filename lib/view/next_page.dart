@@ -2,27 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:provider_et_sqflite/model/counter.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-import 'next_page.dart';
+class NextPage extends StatelessWidget {
+  const NextPage({Key? key}) : super(key: key);
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  static const String title = 'Number increased to';
+  static const String title = 'Next Page';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(title),
+      appBar: AppBar(
+        title: const Text(title),
+      ),
 
       /// the child widget below can use the scoped model
       ///
       floatingActionButton: ScopedModelDescendant<Counter>(
         builder: (context, child, model) => FloatingActionButton.extended(
           onPressed: () {
-            model.increment();
+            model.decrement();
           },
           label: const Text(
-            'Press to Increment',
+            'Press to Decrement',
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w600,
@@ -38,7 +38,7 @@ class MyHomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   const Text(
-                    'Number increased to ...',
+                    'Number lowered to ...',
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w600,
@@ -55,24 +55,6 @@ class MyHomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const NextPage(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Next Page',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.red,
-                      ),
-                    ),
-                  )
                 ],
               )),
     );

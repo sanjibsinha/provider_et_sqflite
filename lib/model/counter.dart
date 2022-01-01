@@ -7,4 +7,9 @@ class Counter extends Model {
     _counter++;
     notifyListeners();
   }
+
+  void decrement() {
+    _counter--;
+    notifyListeners();
+  }
 }
