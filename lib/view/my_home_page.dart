@@ -11,6 +11,9 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Scoped Model Simple'),
       ),
+
+      /// the child widget below can use the scoped model
+      ///
       floatingActionButton: ScopedModelDescendant<Counter>(
         builder: (context, child, model) => FloatingActionButton.extended(
           onPressed: () {
@@ -25,12 +28,15 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
       ),
+
+      /// the child widget below can use the scoped model
+      ///
       body: ScopedModelDescendant<Counter>(
         builder: (context, child, model) => Center(
           child: Text(
             model.counter.toString(),
             style: const TextStyle(
-              fontSize: 30,
+              fontSize: 100,
               fontWeight: FontWeight.w600,
               color: Colors.red,
             ),
