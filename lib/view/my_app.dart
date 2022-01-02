@@ -1,33 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:provider_et_sqflite/model/counter.dart';
-import 'package:scoped_model/scoped_model.dart';
 
-import 'my_home_page.dart';
+import 'all_pages.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({
-    Key? key,
-    required this.counter,
-  }) : super(key: key);
-  final Counter counter;
+  static const String title = 'Blogs';
 
-  // This widget is the root of your application.
+  const MyApp({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return ScopedModel<Counter>(
-      model: Counter(),
-      child: MaterialApp(
+  Widget build(BuildContext context) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Scoped Model Simple',
+        title: title,
+        themeMode: ThemeMode.light,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: Colors.pink.shade200,
+          scaffoldBackgroundColor: Colors.pink.shade600,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
         ),
-
-        /// child widggets are now under its scope
-        /// and we can use this model anywhere below
-        ///
-        home: const MyHomePage(),
-      ),
-    );
-  }
+        home: const AllPages(),
+      );
 }

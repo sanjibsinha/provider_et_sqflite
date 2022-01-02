@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider_et_sqflite/model/counter.dart';
 
 import 'view/my_app.dart';
 
-void main() {
+/// this is one-blog branch
+///
+main() {
   runApp(
-    MyApp(counter: Counter()),
+    const MyApp(),
   );
 }
