@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:provider_et_sqflite/model/user_model.dart';
-
 import 'view/my_app.dart';
 
-void main() {
+/// this is one-blog branch
+///
+main() {
   runApp(
-    MyApp(user: UserModel()),
+    const MyApp(),
   );
 }

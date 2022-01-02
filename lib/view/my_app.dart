@@ -1,34 +1,25 @@
 import 'package:flutter/material.dart';
 
-import 'package:provider_et_sqflite/model/user_model.dart';
-import 'package:scoped_model/scoped_model.dart';
-
-import 'my_home_page.dart';
+import 'all_pages.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
-  final UserModel user;
+  static const String title = 'Blogs';
 
-  // This widget is the root of your application.
+  const MyApp({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Scoped Model Simple',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-
-      /// child widggets are now under its scope
-      /// and we can use this model anywhere below
-      ///
-      home: ScopedModel<UserModel>(
-        model: UserModel(),
-        child: const MyHomePage(),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: title,
+        themeMode: ThemeMode.light,
+        theme: ThemeData(
+          primaryColor: Colors.pink.shade200,
+          scaffoldBackgroundColor: Colors.pink.shade600,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          ),
+        ),
+        home: const AllPages(),
+      );
 }
