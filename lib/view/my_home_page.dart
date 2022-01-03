@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:scoped_model/scoped_model.dart';
 
-import '../model/user_model.dart';
+import '/model/user_model.dart';
+import '/model/user_prvider.dart';
 import '/model/database_handler.dart';
 import '/model/user.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
-  static const String title = 'Database Handling';
+  static const String title = 'Provider, Scoped Model, SQLite';
 
   @override
   Widget build(BuildContext context) {
     final userModel = ScopedModel.of<UserModel>(context);
+    final userProvider = Provider.of<UserProvider>(context);
 
     final handler = DatabaseHandler();
     Future<int> addUsers() async {
@@ -20,8 +24,13 @@ class MyHomePage extends StatelessWidget {
         name: userModel.userOne.name,
         location: userModel.userOne.location,
       );
+      User secondUser = User(
+        name: userProvider.userTwo.name,
+        location: userProvider.userTwo.location,
+      );
       List<User> listOfUsers = [
         firstUser,
+        secondUser,
       ];
       return await handler.insertUser(listOfUsers);
     }
@@ -36,25 +45,45 @@ class MyHomePage extends StatelessWidget {
               return ListView.builder(
                 itemCount: snapshot.data?.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    child: ListTile(
-                      key: ValueKey<int>(snapshot.data![index].id!),
-                      contentPadding: const EdgeInsets.all(8.0),
-                      title: Text(
-                        snapshot.data![index].name,
-                        style: const TextStyle(
-                          fontSize: 30,
-                          color: Colors.red,
+                  return Column(
+                    children: [
+                      Card(
+                        child: ListTile(
+                          key: ValueKey<int>(snapshot.data![index].id!),
+                          contentPadding: const EdgeInsets.all(8.0),
+                          title: Text(
+                            snapshot.data![index].name,
+                            style: const TextStyle(
+                              fontSize: 30,
+                              color: Colors.red,
+                            ),
+                          ),
+                          subtitle: Text(
+                            snapshot.data![index].location,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.blue,
+                            ),
+                          ),
                         ),
+                        elevation: 20,
                       ),
-                      subtitle: Text(
-                        snapshot.data![index].location,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.blue,
+                      TextButton(
+                        onPressed: () {
+                          handler.initializeDB().whenComplete(() async {
+                            await addUsers();
+                          });
+                          model.addingUsers();
+                        },
+                        child: const Text(
+                          'Add Users by Scoped Model',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
-                      ),
-                    ),
+                      )
+                    ],
                   );
                 },
               );
@@ -68,11 +97,10 @@ class MyHomePage extends StatelessWidget {
             handler.initializeDB().whenComplete(() async {
               await addUsers();
             });
-
-            model.addingUsers();
+            userProvider.addingUsers();
           },
           label: const Text(
-            'Add Users',
+            'Add Users by Provider',
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
@@ -99,38 +127,12 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
       ),
-      //elevation: 20,
+      elevation: 20,
       titleSpacing: 80,
-      leading: const Icon(Icons.menu),
       title: Text(
         title,
         textAlign: TextAlign.left,
       ),
-      actions: [
-        buildIcons(
-          const Icon(Icons.add_a_photo),
-        ),
-        buildIcons(
-          const Icon(
-            Icons.notification_add,
-          ),
-        ),
-        buildIcons(
-          const Icon(
-            Icons.settings,
-          ),
-        ),
-        buildIcons(
-          const Icon(Icons.search),
-        ),
-      ],
-    );
-  }
-
-  IconButton buildIcons(Icon icon) {
-    return IconButton(
-      onPressed: () {},
-      icon: icon,
     );
   }
 }

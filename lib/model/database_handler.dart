@@ -7,10 +7,10 @@ class DatabaseHandler {
   Future<Database> initializeDB() async {
     String path = await getDatabasesPath();
     return openDatabase(
-      join(path, 'userthirteen.db'),
+      join(path, 'usereighten.db'),
       onCreate: (database, version) async {
         await database.execute(
-          "CREATE TABLE userthirteen(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, location TEXT NOT NULL)",
+          "CREATE TABLE usereighten(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, location TEXT NOT NULL)",
         );
       },
       version: 1,
@@ -21,7 +21,7 @@ class DatabaseHandler {
     int result = 0;
     final Database db = await initializeDB();
     for (var user in users) {
-      result = await db.insert('userthirteen', user.toMap());
+      result = await db.insert('usereighten', user.toMap());
     }
     return result;
   }
@@ -29,7 +29,7 @@ class DatabaseHandler {
   Future<List<User>> retrieveUsers() async {
     final Database db = await initializeDB();
     final List<Map<String, Object?>> queryResult =
-        await db.query('userthirteen');
+        await db.query('usereighten');
     return queryResult.map((e) => User.fromMap(e)).toList();
   }
 }
