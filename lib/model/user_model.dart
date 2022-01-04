@@ -3,11 +3,11 @@ import 'package:scoped_model/scoped_model.dart';
 import 'user.dart';
 
 class UserModel extends Model {
-  User _userOne = User(name: 'John Smith', location: 'Back East');
-  User get userOne => _userOne;
+  User _userModel = User(name: 'John Smith', location: 'Back East');
+  User get userModel => _userModel;
 
   void addingUsers() {
-    _userOne = userOne;
+    _userModel = userModel;
 
     notifyListeners();
   }

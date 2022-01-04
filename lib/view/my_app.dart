@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider_et_sqflite/model/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-import 'my_home_page.dart';
+import 'model_home_page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       ///
       home: ScopedModel<UserModel>(
         model: UserModel(),
-        child: const MyHomePage(),
+        child: const ModelHomePage(),
       ),
     );
   }

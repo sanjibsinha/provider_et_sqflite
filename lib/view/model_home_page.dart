@@ -1,36 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:scoped_model/scoped_model.dart';
 
 import '/model/user_model.dart';
-import '/model/user_prvider.dart';
+
 import '/model/database_handler.dart';
 import '/model/user.dart';
+import 'provider_home_page.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class ModelHomePage extends StatelessWidget {
+  const ModelHomePage({Key? key}) : super(key: key);
 
-  static const String title = 'Provider, Scoped Model, SQLite';
+  static const String title = 'Adding by Scoped Model';
 
   @override
   Widget build(BuildContext context) {
     final userModel = ScopedModel.of<UserModel>(context);
-    final userProvider = Provider.of<UserProvider>(context);
 
     final handler = DatabaseHandler();
     Future<int> addUsers() async {
       User firstUser = User(
-        name: userModel.userOne.name,
-        location: userModel.userOne.location,
+        name: userModel.userModel.name,
+        location: userModel.userModel.location,
       );
-      User secondUser = User(
-        name: userProvider.userTwo.name,
-        location: userProvider.userTwo.location,
-      );
+
       List<User> listOfUsers = [
         firstUser,
-        secondUser,
       ];
       return await handler.insertUser(listOfUsers);
     }
@@ -70,13 +65,15 @@ class MyHomePage extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {
-                          handler.initializeDB().whenComplete(() async {
-                            await addUsers();
-                          });
-                          model.addingUsers();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProviderHomePage(),
+                            ),
+                          );
                         },
                         child: const Text(
-                          'Add Users by Scoped Model',
+                          'Next Page, Add by Provider',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
@@ -97,10 +94,10 @@ class MyHomePage extends StatelessWidget {
             handler.initializeDB().whenComplete(() async {
               await addUsers();
             });
-            userProvider.addingUsers();
+            userModel.addingUsers();
           },
           label: const Text(
-            'Add Users by Provider',
+            'Add Users by Model',
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
